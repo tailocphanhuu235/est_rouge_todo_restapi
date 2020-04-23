@@ -37,7 +37,7 @@ public class TodoControllerTest {
     /**
      * API: POST: http://localhost:8080/est/rouge/todos</br>
      * INPUT: </br>
-     * { "work_name": null, "start_date": "2020/06/22", "end_date": "2020/08/30",
+     * { "work_name": null, "startDate": "2020/06/22", "endDate": "2020/08/30",
      * "status": 1 } </br>
      * EXPECTED:</br>
      * { "errors": [ { "code": "ERROR_CODE_003", "message": "must not be null",
@@ -57,6 +57,174 @@ public class TodoControllerTest {
         System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_003\",\"message\":\"must not be null\",\"item\":\"workName\"}]}";
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: POST: http://localhost:8080/est/rouge/todos</br>
+     * INPUT: </br>
+     * { "work_name": "",
+     * "startDate": "2020/06/22", "endDate": "2020/08/30", "status": 1 } </br>
+     * EXPECTED:</br>
+     * { "errors": [ { "code": "ERROR_CODE_002", "message": "size must be between 1
+     * and 50", "item": "workName" } ] }
+     */
+    @Test
+    public void registerTodo_whenWorkNameHaveSizeEquals0_thenStatus400() {
+        TodoRequest todoRequest = new TodoRequest();
+        todoRequest.setWorkName("");
+        todoRequest.setStartDate("2020/06/22");
+        todoRequest.setEndDate("2020/08/30");
+        todoRequest.setStatus(1);
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
+        System.out.println(response.getBody());
+
+        String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_002\",\"message\":\"size must be between 1 and 50\",\"item\":\"workName\"}]}";
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: POST: http://localhost:8080/est/rouge/todos</br>
+     * INPUT: </br>
+     * { "work_name": "todo test111111111111111111111111111111111111111111",
+     * "startDate": "2020/06/22", "endDate": "2020/08/30", "status": 1 } </br>
+     * EXPECTED:</br>
+     * { "errors": [ { "code": "ERROR_CODE_002", "message": "size must be between 1
+     * and 50", "item": "workName" } ] }
+     */
+    @Test
+    public void registerTodo_whenWorkNameHaveSizeThan50_thenStatus400() {
+        TodoRequest todoRequest = new TodoRequest();
+        todoRequest.setWorkName("todo test111111111111111111111111111111111111111111"); // Length = 51
+        todoRequest.setStartDate("2020/06/22");
+        todoRequest.setEndDate("2020/08/30");
+        todoRequest.setStatus(1);
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
+        System.out.println(response.getBody());
+
+        String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_002\",\"message\":\"size must be between 1 and 50\",\"item\":\"workName\"}]}";
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: POST: http://localhost:8080/est/rouge/todos</br>
+     * INPUT: </br>
+     * { "work_name": "Study CI/CD", "startDate": null, "endDate": "2020/08/30",
+     * "status": 1 } </br>
+     * EXPECTED:</br>
+     * { "errors": [ { "code": "ERROR_CODE_003", "message": "must not be null",
+     * "item": "startDate" } ] }
+     */
+    @Test
+    public void registerTodo_whenStartDateIsNull_thenStatus400() {
+        TodoRequest todoRequest = new TodoRequest();
+        todoRequest.setWorkName("Study CI/CD");
+        todoRequest.setStartDate(null);
+        todoRequest.setEndDate("2020/08/30");
+        todoRequest.setStatus(1);
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
+        System.out.println(response.getBody());
+
+        String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_003\",\"message\":\"must not be null\",\"item\":\"startDate\"}]}";
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: POST: http://localhost:8080/est/rouge/todos</br>
+     * INPUT: </br>
+     * { "work_name": "Study CI/CD", "startDate": "123", "endDate": "2020/08/30",
+     * "status": 1 } </br>
+     * EXPECTED:</br>
+     * { "errors": [ { "code": "ERROR_CODE_004", "message": "date is invalid, must be format yyyy/MM/dd",
+     * "item": "startDate" } ] }
+     */
+    @Test
+    public void registerTodo_whenStartDateIsInvalidDateTime_thenStatus400() {
+        TodoRequest todoRequest = new TodoRequest();
+        todoRequest.setWorkName("Study CI/CD");
+        todoRequest.setStartDate("123");
+        todoRequest.setEndDate("2020/08/30");
+        todoRequest.setStatus(1);
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
+        System.out.println(response.getBody());
+
+        String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_004\",\"message\":\"date is invalid, must be format yyyy/MM/dd\",\"item\":\"startDate\"}]}";
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: POST: http://localhost:8080/est/rouge/todos</br>
+     * INPUT: </br>
+     * { "work_name": "Study CI/CD", "startDate": "2020/06/22", "endDate": null,
+     * "status": 1 } </br>
+     * EXPECTED:</br>
+     * { "errors": [ { "code": "ERROR_CODE_003", "message": "must not be null",
+     * "item": "endDate" } ] }
+     */
+    @Test
+    public void registerTodo_whenEndDateIsNull_thenStatus400() {
+        TodoRequest todoRequest = new TodoRequest();
+        todoRequest.setWorkName("Study CI/CD");
+        todoRequest.setStartDate("2020/06/22");
+        todoRequest.setEndDate(null);
+        todoRequest.setStatus(1);
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
+        System.out.println(response.getBody());
+
+        String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_003\",\"message\":\"must not be null\",\"item\":\"endDate\"}]}";
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: POST: http://localhost:8080/est/rouge/todos</br>
+     * INPUT: </br>
+     * { "work_name": "Study CI/CD", "startDate": "2020/06/22", "endDate": "123",
+     * "status": 1 } </br>
+     * EXPECTED:</br>
+     * { "errors": [ { "code": "ERROR_CODE_004", "message": "date is invalid, must be format yyyy/MM/dd",
+     * "item": "startDate" } ] }
+     */
+    @Test
+    public void registerTodo_whenEndDateIsInvalidDateTime_thenStatus400() {
+        TodoRequest todoRequest = new TodoRequest();
+        todoRequest.setWorkName("Study CI/CD");
+        todoRequest.setStartDate("2020/06/22");
+        todoRequest.setEndDate("123");
+        todoRequest.setStatus(1);
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
+        System.out.println(response.getBody());
+
+        String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_004\",\"message\":\"date is invalid, must be format yyyy/MM/dd\",\"item\":\"endDate\"}]}";
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(expectedStr, response.getBody());

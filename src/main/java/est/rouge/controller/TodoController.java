@@ -3,8 +3,6 @@ package est.rouge.controller;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,7 @@ import est.rouge.dto.TodoRequest;
 import est.rouge.dto.TodoResponse;
 import est.rouge.exception.GlobalException;
 import est.rouge.service.TodoService;
+import est.rouge.validation.group.ValidationGroup;
 
 /**
  * Class controller
@@ -35,7 +34,7 @@ import est.rouge.service.TodoService;
  */
 @RestController
 @RequestMapping(Constants.URL_BASE)
-@Validated
+@Validated(value = { ValidationGroup.class })
 public class TodoController {
     /**
      * Service handle business CRUD
@@ -53,8 +52,7 @@ public class TodoController {
     public ResponseEntity<?> getListAllTodos(
             @Valid @RequestParam(defaultValue = "0") @Pattern(regexp = "[0-9]", message = Constants.ERROR_CODE_007) String pageNo,
             @Valid @RequestParam(defaultValue = "5") @Pattern(regexp = "[0-9]", message = Constants.ERROR_CODE_007) String pageSize,
-            @RequestParam(defaultValue = "id") String sortBy)
-            throws GlobalException {
+            @RequestParam(defaultValue = "id") String sortBy) throws GlobalException {
         List<TodoResponse> todoList = todoService.getAll(Integer.valueOf(pageNo), Integer.valueOf(pageSize), sortBy);
 
         CommonResponse<List<TodoResponse>> commonResponse = new CommonResponse<>();
@@ -105,7 +103,8 @@ public class TodoController {
      * @throws GlobalException
      */
     @PostMapping(value = Constants.URL_TODO)
-    public ResponseEntity<?> registerTodo(@Validated @RequestBody TodoRequest todoRequest) throws GlobalException {
+    public ResponseEntity<?> registerTodo(
+            @Validated(value = { ValidationGroup.class }) @RequestBody TodoRequest todoRequest) throws GlobalException {
         TodoResponse todo = todoService.register(todoRequest);
 
         CommonResponse<TodoResponse> commonResponse = new CommonResponse<>();
@@ -124,8 +123,8 @@ public class TodoController {
      * @throws GlobalException
      */
     @PutMapping(value = Constants.URL_TODO + "/{id}")
-    public ResponseEntity<?> updateTodo(@PathVariable Long id, @Validated @RequestBody TodoRequest todoRequest)
-            throws GlobalException {
+    public ResponseEntity<?> updateTodo(@PathVariable Long id,
+            @Validated(value = { ValidationGroup.class }) @RequestBody TodoRequest todoRequest) throws GlobalException {
         TodoResponse todo = todoService.update(id, todoRequest);
 
         CommonResponse<TodoResponse> commonResponse = new CommonResponse<>();
