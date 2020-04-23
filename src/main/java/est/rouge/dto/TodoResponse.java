@@ -20,19 +20,19 @@ public class TodoResponse {
     /**
      * Work name
      */
-    @JsonProperty("work_name")
+    @JsonProperty("workName")
     private String workName;
 
     /**
      * Start date
      */
-    @JsonProperty("start_date")
+    @JsonProperty("startDate")
     private String startDate;
 
     /**
      * End date
      */
-    @JsonProperty("end_date")
+    @JsonProperty("endDate")
     private String endDate;
 
     /**

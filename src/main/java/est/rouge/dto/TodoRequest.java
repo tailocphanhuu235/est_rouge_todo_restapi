@@ -23,7 +23,7 @@ public class TodoRequest {
      */
     @NotNull(message = Constants.ERROR_CODE_003)
     @Size(min = 1, max = 50, message = Constants.ERROR_CODE_002)
-    @JsonProperty("work_name")
+    @JsonProperty("workName")
     private String workName;
 
     /**
@@ -31,7 +31,7 @@ public class TodoRequest {
      */
     @NotNull(message = Constants.ERROR_CODE_003)
     @DateTime(message = Constants.ERROR_CODE_004)
-    @JsonProperty("start_date")
+    @JsonProperty("startDate")
     private String startDate;
 
     /**
@@ -39,7 +39,7 @@ public class TodoRequest {
      */
     @NotNull(message = Constants.ERROR_CODE_003)
     @DateTime(message = Constants.ERROR_CODE_004)
-    @JsonProperty("end_date")
+    @JsonProperty("endDate")
     private String endDate;
 
     /**

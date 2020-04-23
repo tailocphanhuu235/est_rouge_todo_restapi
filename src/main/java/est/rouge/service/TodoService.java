@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import est.rouge.common.constants.Constants;
@@ -31,19 +34,24 @@ public class TodoService {
      * @return list todo response
      * @throws Http500Exception
      */
-    public List<TodoResponse> getAll() throws Http500Exception {
+    public List<TodoResponse> getAll(Integer pageNo, Integer pageSize, String sortBy) throws Http500Exception {
         List<TodoResponse> response = new ArrayList<TodoResponse>();
         try {
-            List<Todo> todoList = todoRepository.findAll();
-            for (Todo todo : todoList) {
-                TodoResponse res = new TodoResponse();
-                res.setId(todo.getId());
-                res.setWorkName(todo.getWorkName());
-                res.setStartDate(Utils.formatDate_yyyyMMdd(todo.getStartDate()));
-                res.setEndDate(Utils.formatDate_yyyyMMdd(todo.getEndDate()));
-                res.setStatus(todo.getStatus());
-                response.add(res);
+            Page<Todo> page = todoRepository.findAll(PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending()));
+
+            if (page.hasContent()) {
+                List<Todo> todoList = page.getContent();
+                for (Todo todo : todoList) {
+                    TodoResponse res = new TodoResponse();
+                    res.setId(todo.getId());
+                    res.setWorkName(todo.getWorkName());
+                    res.setStartDate(Utils.formatDate_yyyyMMdd(todo.getStartDate()));
+                    res.setEndDate(Utils.formatDate_yyyyMMdd(todo.getEndDate()));
+                    res.setStatus(todo.getStatus());
+                    response.add(res);
+                }
             }
+
         } catch (Exception exception) {
             throw new Http500Exception(Constants.ERROR_CODE_500);
         }

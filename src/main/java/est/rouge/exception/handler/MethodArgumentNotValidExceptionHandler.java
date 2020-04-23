@@ -39,6 +39,7 @@ public class MethodArgumentNotValidExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleException(MethodArgumentNotValidException methodArgumentNotValidException) {
+        System.out.println("Error: =======MethodArgumentNotValidException========");
         CommonResponse<Object> commonResponse = new CommonResponse<>();
 
         BindingResult result = methodArgumentNotValidException.getBindingResult();

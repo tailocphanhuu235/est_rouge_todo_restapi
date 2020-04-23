@@ -52,6 +52,10 @@ public class Constants {
      */
     public static final String ERROR_CODE_006 = "ERROR_CODE_006";
     /**
+     * ERROR_CODE_007
+     */
+    public static final String ERROR_CODE_007 = "ERROR_CODE_007";
+    /**
      * 400 Bad Request
      */
     public static final String ERROR_CODE_400 = "ERROR_CODE_400";

@@ -2,6 +2,11 @@ package est.rouge.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import est.rouge.common.constants.Constants;
@@ -29,6 +35,7 @@ import est.rouge.service.TodoService;
  */
 @RestController
 @RequestMapping(Constants.URL_BASE)
+@Validated
 public class TodoController {
     /**
      * Service handle business CRUD
@@ -43,8 +50,12 @@ public class TodoController {
      * @throws GlobalException
      */
     @GetMapping(value = Constants.URL_TODO)
-    public ResponseEntity<?> getListAllTodos() throws GlobalException {
-        List<TodoResponse> todoList = todoService.getAll();
+    public ResponseEntity<?> getListAllTodos(
+            @Valid @RequestParam(defaultValue = "0") @Pattern(regexp = "[0-9]", message = Constants.ERROR_CODE_007) String pageNo,
+            @Valid @RequestParam(defaultValue = "5") @Pattern(regexp = "[0-9]", message = Constants.ERROR_CODE_007) String pageSize,
+            @RequestParam(defaultValue = "id") String sortBy)
+            throws GlobalException {
+        List<TodoResponse> todoList = todoService.getAll(Integer.valueOf(pageNo), Integer.valueOf(pageSize), sortBy);
 
         CommonResponse<List<TodoResponse>> commonResponse = new CommonResponse<>();
         commonResponse.setResult(todoList);
@@ -94,8 +105,7 @@ public class TodoController {
      * @throws GlobalException
      */
     @PostMapping(value = Constants.URL_TODO)
-    public ResponseEntity<?> registerTodo(@Validated @RequestBody TodoRequest todoRequest)
-            throws GlobalException {
+    public ResponseEntity<?> registerTodo(@Validated @RequestBody TodoRequest todoRequest) throws GlobalException {
         TodoResponse todo = todoService.register(todoRequest);
 
         CommonResponse<TodoResponse> commonResponse = new CommonResponse<>();
@@ -114,8 +124,8 @@ public class TodoController {
      * @throws GlobalException
      */
     @PutMapping(value = Constants.URL_TODO + "/{id}")
-    public ResponseEntity<?> updateTodo(@PathVariable Long id,
-            @Validated @RequestBody TodoRequest todoRequest) throws GlobalException {
+    public ResponseEntity<?> updateTodo(@PathVariable Long id, @Validated @RequestBody TodoRequest todoRequest)
+            throws GlobalException {
         TodoResponse todo = todoService.update(id, todoRequest);
 
         CommonResponse<TodoResponse> commonResponse = new CommonResponse<>();
