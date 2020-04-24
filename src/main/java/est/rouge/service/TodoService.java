@@ -68,7 +68,7 @@ public class TodoService {
      * @throws Http500Exception
      */
     public TodoResponse getById(long id) throws Http500Exception {
-        TodoResponse response = null;
+        TodoResponse response = new TodoResponse();
         try {
             // Check object exist
             // Todo todo = todoRepository.getOne(id);
@@ -98,7 +98,7 @@ public class TodoService {
      * @throws Http500Exception
      */
     public TodoResponse delete(long id) throws Http500Exception {
-        TodoResponse response = null;
+        TodoResponse response = new TodoResponse();
         try {
             // Check exist object
             // Todo todo = todoRepository.getOne(id);
@@ -168,7 +168,7 @@ public class TodoService {
      * @throws Http500Exception
      */
     public TodoResponse update(Long id, TodoRequest todoRequest) throws Http500Exception {
-        TodoResponse response = null;
+        TodoResponse response = new TodoResponse();
         try {
             // Check exist object
             // Todo todo = todoRepository.getOne(id);

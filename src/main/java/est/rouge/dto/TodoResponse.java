@@ -1,6 +1,8 @@
 package est.rouge.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
 
@@ -10,6 +12,7 @@ import lombok.Data;
  * @author tailocphanhuu
  */
 @Data
+@JsonInclude(Include.NON_NULL)
 public class TodoResponse {
     /**
      * Primary key

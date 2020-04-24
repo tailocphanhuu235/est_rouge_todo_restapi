@@ -104,7 +104,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_003\",\"message\":\"must not be null\",\"item\":\"workName\"}]}";
 
@@ -133,7 +132,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_002\",\"message\":\"size must be between 1 and 50\",\"item\":\"workName\"}]}";
 
@@ -162,7 +160,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_002\",\"message\":\"size must be between 1 and 50\",\"item\":\"workName\"}]}";
 
@@ -191,7 +188,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_003\",\"message\":\"must not be null\",\"item\":\"startDate\"}]}";
 
@@ -220,7 +216,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_004\",\"message\":\"date is invalid, must be format yyyy/MM/dd\",\"item\":\"startDate\"}]}";
 
@@ -249,7 +244,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_003\",\"message\":\"must not be null\",\"item\":\"endDate\"}]}";
 
@@ -278,7 +272,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_004\",\"message\":\"date is invalid, must be format yyyy/MM/dd\",\"item\":\"endDate\"}]}";
 
@@ -307,7 +300,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_003\",\"message\":\"must not be null\",\"item\":\"status\"}]}";
 
@@ -336,7 +328,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_006\",\"message\":\"must be between 0 and 2\",\"item\":\"status\"}]}";
 
@@ -365,7 +356,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"result\":{\"id\":11,\"workName\":\"Study CI/CD\",\"startDate\":\"2020/06/22\",\"endDate\":\"2020/08/30\",\"status\":1}}";
 
@@ -395,7 +385,6 @@ public class TodoControllerTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("/est/rouge/todos", entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_500\",\"message\":\"500 Internal Server\",\"item\":\"null\"}]}";
 
@@ -418,7 +407,6 @@ public class TodoControllerTest {
         HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos?pageNo=10&pageSize=2&sortBy=status",
                 HttpMethod.GET, entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"result\":[]}";
 
@@ -443,7 +431,6 @@ public class TodoControllerTest {
         HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos?pageNo=10&pageSize=2&sortBy=status",
                 HttpMethod.GET, entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_500\",\"message\":\"500 Internal Server\",\"item\":\"null\"}]}";
 
@@ -468,7 +455,6 @@ public class TodoControllerTest {
         HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos?pageNo=0&pageSize=2&sortBy=status",
                 HttpMethod.GET, entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"result\":[{\"id\":1,\"workName\":\"Study Flutter\",\"startDate\":\"2020/04/20\",\"endDate\":\"2020/04/25\",\"status\":0},{\"id\":3,\"workName\":\"Study JavaScript\",\"startDate\":\"2020/05/22\",\"endDate\":\"2020/05/30\",\"status\":0}]}";
 
@@ -494,7 +480,6 @@ public class TodoControllerTest {
         HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(
                 "/est/rouge/todos?pageNo=abc&pageSize=abc&sortBy=status", HttpMethod.GET, entity, String.class);
-        System.out.println(response.getBody());
 
         String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_007\",\"message\":\"must be number\",\"item\":\"pageNo\"},{\"code\":\"ERROR_CODE_007\",\"message\":\"must be number\",\"item\":\"pageSize\"}]}";
 
@@ -502,7 +487,219 @@ public class TodoControllerTest {
         assertEquals(expectedStr, response.getBody());
     }
 
-    // Test getTodoById
-    // Test deleteTodoById
-    // Test updateTodo
+    /**
+     * API: GET: http://localhost:8080/est/rouge/todos/{id}</br>
+     * INPUT: </br>
+     * http://localhost:8080/est/rouge/todos/15 </br>
+     * EXPECTED:</br>
+     * HTTP status code = 200 </br>
+     * { "result": {} }
+     */
+    @Test
+    public void getTodoById_whenSuccessWithDataNotExist_thenStatus200() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos/15", HttpMethod.GET, entity,
+                String.class);
+
+        String expectedStr = "{\"result\":{}}";
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: GET: http://localhost:8080/est/rouge/todos/{id}</br>
+     * INPUT: </br>
+     * http://localhost:8080/est/rouge/todos/1 </br>
+     * EXPECTED:</br>
+     * HTTP status code = 200 </br>
+     * { "result": { "id": 1, "workName": "Study Flutter", "startDate":
+     * "2020/04/20", "endDate": "2020/04/25", "status": 0 } }
+     */
+    @Test
+    public void getTodoById_whenSuccessWithDataExist_thenStatus200() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos/1", HttpMethod.GET, entity,
+                String.class);
+
+        String expectedStr = "{\"result\":{\"id\":1,\"workName\":\"Study Flutter\",\"startDate\":\"2020/04/20\",\"endDate\":\"2020/04/25\",\"status\":0}}";
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: GET: http://localhost:8080/est/rouge/todos/{id}</br>
+     * TEST BY DEBUG THEN STOP MYSQL DATABASE </br>
+     * INPUT: </br>
+     * http://localhost:8080/est/rouge/todos/1 </br>
+     * EXPECTED:</br>
+     * HTTP status code = 500 </br>
+     * { "errors": [ { "code": "ERROR_CODE_500", "message": "500 Internal Server
+     * Error", "item": null } ] }
+     */
+    @Test
+    public void getTodoById_whenConnectDBFailed_thenStatus500() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos/1", HttpMethod.GET, entity,
+                String.class);
+
+        String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_500\",\"message\":\"500 Internal Server\",\"item\":\"null\"}]}";
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: DELETE: http://localhost:8080/est/rouge/todos/{id}</br>
+     * INPUT: </br>
+     * http://localhost:8080/est/rouge/todos/15 </br>
+     * EXPECTED:</br>
+     * HTTP status code = 200 </br>
+     * { "result": {} }
+     */
+    @Test
+    public void deleteTodoById_whenDataNotExist_thenStatus200() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos/15", HttpMethod.DELETE, entity,
+                String.class);
+
+        String expectedStr = "{\"result\":{}}";
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: DELETE: http://localhost:8080/est/rouge/todos/{id}</br>
+     * INPUT: </br>
+     * http://localhost:8080/est/rouge/todos/1 </br>
+     * EXPECTED:</br>
+     * HTTP status code = 200 </br>
+     * { "result": { "id": 1, "workName": "Study Flutter", "startDate":
+     * "2020/04/20", "endDate": "2020/04/25", "status": 0 } }
+     */
+    @Test
+    public void deleteTodoById_whenSuccessWithDataExist_thenStatus200() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos/1", HttpMethod.DELETE, entity,
+                String.class);
+
+        String expectedStr = "{\"result\":{\"id\":1,\"workName\":\"Study Flutter\",\"startDate\":\"2020/04/20\",\"endDate\":\"2020/04/25\",\"status\":0}}";
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: DELETE: http://localhost:8080/est/rouge/todos/{id}</br>
+     * TEST BY DEBUG THEN STOP MYSQL DATABASE </br>
+     * INPUT: </br>
+     * http://localhost:8080/est/rouge/todos/1 </br>
+     * EXPECTED:</br>
+     * HTTP status code = 500 </br>
+     * { "errors": [ { "code": "ERROR_CODE_500", "message": "500 Internal Server
+     * Error", "item": null } ] }
+     */
+    @Test
+    public void deleteTodoById_whenConnectDBFailed_thenStatus500() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos/1", HttpMethod.DELETE, entity,
+                String.class);
+
+        String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_500\",\"message\":\"500 Internal Server\",\"item\":\"null\"}]}";
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: PUT: http://localhost:8080/est/rouge/todos/{id}</br>
+     * INPUT: </br>
+     * http://localhost:8080/est/rouge/todos/1 </br>
+     * { "workName": "Study N3", "startDate": "2020/12/15", "endDate": "2021/12/15",
+     * "status": 2 } </br>
+     * EXPECTED:</br>
+     * HTTP status code = 200 </br>
+     * { "result": { "id": 1, "workName": "Study N3", "startDate": "2020/12/15",
+     * "endDate": "2021/12/15", "status": 2 } }
+     */
+    @Test
+    public void updateTodo_whenSuccessWithDataExist_thenStatus200() {
+        TodoRequest todoRequest = new TodoRequest();
+        todoRequest.setWorkName("Study N3");
+        todoRequest.setStartDate("2020/12/15");
+        todoRequest.setEndDate("2021/12/15");
+        todoRequest.setStatus(2);
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
+        ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos/1", HttpMethod.PUT, entity,
+                String.class);
+
+        String expectedStr = "{\"result\":{\"id\":1,\"workName\":\"Study N3\",\"startDate\":\"2020/12/15\",\"endDate\":\"2021/12/15\",\"status\":2}}";
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: PUT: http://localhost:8080/est/rouge/todos/{id}</br>
+     * INPUT: </br>
+     * http://localhost:8080/est/rouge/todos/15 </br>
+     * { "workName": "Study N3", "startDate": "2020/12/15", "endDate": "2021/12/15",
+     * "status": 2 } </br>
+     * EXPECTED:</br>
+     * HTTP status code = 200 </br>
+     * { "result": {} }
+     */
+    @Test
+    public void updateTodo_whenDataNotExist_thenStatus200() {
+        TodoRequest todoRequest = new TodoRequest();
+        todoRequest.setWorkName("Study N3");
+        todoRequest.setStartDate("2020/12/15");
+        todoRequest.setEndDate("2021/12/15");
+        todoRequest.setStatus(2);
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(todoRequest, headers);
+        ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos/15", HttpMethod.PUT, entity,
+                String.class);
+
+        String expectedStr = "{\"result\":{}}";
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
+
+    /**
+     * API: PUT: http://localhost:8080/est/rouge/todos/{id}</br>
+     * TEST BY DEBUG THEN STOP MYSQL DATABASE </br>
+     * INPUT: </br>
+     * http://localhost:8080/est/rouge/todos/1 </br>
+     * { "workName": "Study N3", "startDate": "2020/12/15", "endDate": "2021/12/15",
+     * "status": 2 } </br>
+     * EXPECTED:</br>
+     * HTTP status code = 500 </br>
+     * { "errors": [ { "code": "ERROR_CODE_500", "message": "500 Internal Server
+     * Error", "item": null } ] }
+     */
+    @Test
+    public void updateTodo_whenConnectDBFailed_thenStatus500() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TodoRequest> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange("/est/rouge/todos/1", HttpMethod.PUT, entity,
+                String.class);
+
+        String expectedStr = "{\"errors\":[{\"code\":\"ERROR_CODE_500\",\"message\":\"500 Internal Server\",\"item\":\"null\"}]}";
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals(expectedStr, response.getBody());
+    }
 }
